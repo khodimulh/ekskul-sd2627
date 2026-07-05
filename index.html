@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <title>Ekstrakurikuler SD</title>
+  <style>
+    :root{--blue:#0f4cc9;--blue2:#1b74e4;--gold:#f5a524;--orange:#ff7a1a;--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--line:#e4e9f2;--success:#067647;--danger:#c01048;--sidebar:#0b2559;--shadow:0 14px 36px rgba(23,32,51,.08)}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+    button,input,select,textarea{font-family:inherit;font-size:15px}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+    .topbar-inner{max-width:1160px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .brand{display:flex;align-items:center;gap:12px;min-width:0}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--blue),var(--gold));display:grid;place-items:center;color:white;font-weight:900;overflow:hidden;flex:0 0 auto}.logo img{width:100%;height:100%;object-fit:contain;background:white;padding:4px}.brand strong{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand span{display:block;font-size:12px;color:var(--muted);margin-top:2px}
+    .public-nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.public-nav button{border:1px solid transparent;background:transparent;color:var(--muted);padding:10px 13px;border-radius:999px;font-weight:900;cursor:pointer}.public-nav button.active,.public-nav button:hover{color:var(--blue);background:rgba(15,76,201,.08);border-color:rgba(15,76,201,.12)}
+    .page{max-width:1160px;margin:0 auto;padding:22px 16px 60px}.public-section{display:none}.public-section.active{display:block}
+    .hero{background:radial-gradient(circle at 92% 12%,rgba(245,165,36,.25),transparent 28%),linear-gradient(135deg,#0f4cc9,#0b2d74);border-radius:28px;padding:30px;color:white;box-shadow:var(--shadow);margin-bottom:18px}.hero h1{margin:0 0 10px;font-size:clamp(30px,5vw,48px);letter-spacing:-.04em;line-height:1.08}.hero p{margin:0;color:rgba(255,255,255,.86);line-height:1.7;max-width:760px}
+    .panel{background:white;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:var(--shadow);margin-bottom:16px}.panel h2,.panel h3{margin:0 0 8px;line-height:1.2}.panel p{margin:0 0 14px;color:var(--muted);line-height:1.6;font-size:14px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-top:12px}.field label{display:block;font-weight:900;margin-bottom:7px;font-size:14px}
+    input,select,textarea{width:100%;min-height:48px;border:1px solid var(--line);border-radius:15px;padding:13px 14px;outline:none;background:white;color:var(--text)}textarea{min-height:90px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 4px rgba(27,116,228,.1)}
+    .btn{border:none;border-radius:16px;padding:14px 18px;min-height:48px;cursor:pointer;font-weight:900}.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:white;box-shadow:0 14px 26px rgba(15,76,201,.18)}.btn-gold{background:linear-gradient(135deg,var(--gold),var(--orange));color:white}.btn-light{background:#eef4ff;color:var(--blue)}.btn-block{width:100%;margin-top:16px}.btn:disabled{opacity:.65;cursor:not-allowed}
+    .choice-list{display:grid;gap:10px}.choice-item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:13px;background:white}.choice-item input{width:20px;min-height:20px;accent-color:var(--blue)}.choice-item strong{display:block}.choice-item span{display:block;color:var(--muted);font-size:12px;line-height:1.45;margin-top:3px}
+    .fee{display:inline-block;background:rgba(245,165,36,.15);color:#895100;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;margin-top:7px}.agree{display:flex;gap:10px;margin-top:16px;padding:13px;border-radius:16px;border:1px solid rgba(15,76,201,.12);background:rgba(15,76,201,.05);font-size:13px;line-height:1.55;color:var(--muted)}.agree input{width:20px;min-height:20px;accent-color:var(--blue);flex:0 0 auto}
+    .message{display:none;margin-top:14px;border-radius:16px;padding:14px;font-size:14px;line-height:1.6}.message.success{display:block;color:var(--success);background:#ecfdf3;border:1px solid #abefc6}.message.error{display:block;color:var(--danger);background:#fff1f3;border:1px solid #fecdd6}.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:18px;padding:15px;line-height:1.6;margin-bottom:16px;font-size:14px}
+    .catalog-card,.schedule-card{background:white;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}.photo{aspect-ratio:1/1;background:linear-gradient(135deg,rgba(15,76,201,.1),rgba(245,165,36,.14));display:grid;place-items:center;color:var(--blue);font-weight:900;font-size:38px;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover}.card-body{padding:16px}.card-body h3{margin:0 0 8px;font-size:18px}.card-body p{margin:10px 0 0;color:var(--muted);line-height:1.55;font-size:13px}
+    .payment-box{display:none;margin-top:16px;background:#fbfcff;border:1px solid var(--line);border-radius:20px;padding:16px}.payment-list{display:grid;gap:14px;margin-top:10px}.pay-item{display:block;border:1px solid var(--line);border-radius:18px;padding:16px;background:white}.pay-btn{text-decoration:none;color:white;background:linear-gradient(135deg,var(--gold),var(--orange));border-radius:14px;padding:12px 16px;font-weight:900;font-size:14px;white-space:nowrap;display:inline-block;text-align:center}
+    .cred-box{display:none;background:#ecfdf3;border:1px solid #abefc6;border-radius:18px;padding:16px;margin-top:16px;color:#067647}.cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.cred-item{background:white;border:1px solid #abefc6;border-radius:14px;padding:12px}.cred-item strong{display:block;font-size:13px;margin-bottom:4px}.cred-item code{font-size:18px;font-weight:900;color:#172033}
+    .dashboard{display:none;grid-template-columns:280px 1fr;min-height:100vh}.sidebar{background:linear-gradient(180deg,var(--sidebar),#061735);color:white;padding:18px;position:sticky;top:0;height:100vh;overflow:auto}.user-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:13px;margin:14px 0}.user-card span{display:block;color:rgba(255,255,255,.75);font-size:12px;word-break:break-word}.role-badge{display:inline-block;margin-top:8px;background:rgba(245,165,36,.18);color:#ffd89b;border:1px solid rgba(245,165,36,.22);padding:6px 9px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase}.dash-nav{display:grid;gap:7px}.dash-nav button{border:none;background:transparent;color:rgba(255,255,255,.76);display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;cursor:pointer;font-weight:800;text-align:left}.dash-nav button.active,.dash-nav button:hover{background:rgba(255,255,255,.12);color:white}.main{min-width:0;padding:22px}.dash-section{display:none}.dash-section.active{display:block}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}.stat{background:white;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}.stat strong{display:block;color:var(--blue);font-size:24px;margin-bottom:4px}.stat span{color:var(--muted);font-size:13px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:white}table{width:100%;border-collapse:collapse;min-width:760px}th,td{padding:13px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:13px;vertical-align:top}th{background:rgba(15,76,201,.07);color:var(--blue);font-weight:900}.att-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:8px;background:white}.att-row input[type=checkbox]{width:22px;min-height:22px;accent-color:var(--blue)}
+    .mini-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.mini-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px}.mini-card b{display:block;font-size:16px;margin-bottom:5px}.mini-card span{color:var(--muted);font-size:13px;line-height:1.5}.status-lunas{color:#067647;font-weight:900}.status-belum{color:#c01048;font-weight:900}.score-row{display:grid;grid-template-columns:1.2fr .8fr 1.5fr;gap:12px;align-items:center;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:8px;background:white}.mobilebar{display:none;background:white;border-bottom:1px solid var(--line);padding:10px 14px;position:sticky;top:0;z-index:20}.hamburger{border:none;background:var(--blue);color:white;border-radius:12px;padding:10px 12px;font-weight:900}
+    .katalog-layout{display:grid;grid-template-columns:260px 1fr;gap:14px}.ekskul-menu{display:grid;gap:8px}.ekskul-menu button{text-align:left;border:1px solid var(--line);background:white;border-radius:14px;padding:12px;font-weight:900;cursor:pointer}.ekskul-menu button.active,.ekskul-menu button:hover{border-color:rgba(15,76,201,.35);color:var(--blue);background:rgba(15,76,201,.06)}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.photo-grid .photo{border-radius:16px}.pay-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}.pay-top{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+
+    button,.choice-item,.pay-btn,.ekskul-menu button{transition:transform .14s ease, box-shadow .14s ease, background .14s ease}
+    button:active,.choice-item:active,.pay-btn:active,.ekskul-menu button:active{transform:scale(.97)}
+    button:hover,.pay-btn:hover,.ekskul-menu button:hover{box-shadow:0 10px 20px rgba(23,32,51,.08)}
+    .loading-overlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(255,255,255,.62);backdrop-filter:blur(4px);align-items:center;justify-content:center}
+    .loading-overlay.show{display:flex}
+    .loading-card{background:white;border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px;padding:22px 28px;display:grid;gap:12px;place-items:center;color:var(--text)}
+    .spinner{width:38px;height:38px;border-radius:50%;border:4px solid #e5e7eb;border-top-color:var(--blue);animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .trainer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+    .trainer-card{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:center;background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:12px}
+    .trainer-photo{width:64px;height:64px;border-radius:14px;background:linear-gradient(135deg,rgba(15,76,201,.12),rgba(245,165,36,.15));display:grid;place-items:center;color:var(--blue);font-weight:900;overflow:hidden}
+    .trainer-photo img{width:100%;height:100%;object-fit:cover}
+
+
+    .after-hero{display:grid;gap:14px}.success-title{display:flex;align-items:center;gap:10px;font-size:26px;margin:0 0 8px}
+    .wa-box{border:1px solid #bbf7d0;background:#f0fdf4;border-radius:18px;padding:14px;margin-top:12px}.wa-btn{display:block;text-align:center;text-decoration:none;background:#16a34a;color:white;border-radius:14px;padding:13px 16px;font-weight:900;margin-top:10px}
+    .data-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.data-toolbar button{min-height:42px;padding:10px 14px;border-radius:12px}.pay-stack{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}.pay-item{display:block}.pay-btn{border-radius:14px;display:inline-block;white-space:normal}
+
+
+    .inline-loading{padding:14px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);background:#fbfcff;margin-top:12px}
+    .pay-header{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+    .pay-confirm{box-shadow:none;margin:14px 0 0;padding:14px;border-radius:16px}
+    .pay-stack{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
+
+    @media(max-width:980px){.grid-2{grid-template-columns:1fr}.grid-3,.stats,.mini-cards{grid-template-columns:repeat(2,1fr)}.dashboard{grid-template-columns:1fr}.sidebar{position:fixed;left:-310px;top:0;bottom:0;width:280px;z-index:40;transition:.25s}.sidebar.open{left:0}.mobilebar{display:flex;justify-content:space-between;align-items:center}.main{padding:16px}.topbar-inner{align-items:flex-start;flex-direction:column}.public-nav{justify-content:flex-start}}
+    @media(max-width:620px){body{padding-bottom:82px}.public-nav{position:fixed;left:10px;right:10px;bottom:10px;z-index:80;background:rgba(255,255,255,.97);border:1px solid var(--line);box-shadow:0 -10px 30px rgba(23,32,51,.10);border-radius:20px;padding:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.public-nav button{border-radius:14px;text-align:center}.topbar{position:sticky}body{padding-bottom:72px}.topbar{position:static}.public-nav{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(255,255,255,.98);border-top:1px solid var(--line);padding:8px;box-shadow:0 -12px 30px rgba(23,32,51,.08);justify-content:center}.public-nav button{flex:1}.page,.main{padding:12px}.hero{border-radius:22px;padding:22px 18px}.hero h1{font-size:30px}.grid-3,.stats,.mini-cards,.row,.score-row{grid-template-columns:1fr}.panel{border-radius:20px;padding:17px}.pay-item,.cred-grid,.att-row,.pay-actions,.pay-top{grid-template-columns:1fr}.photo-grid{grid-template-columns:repeat(2,1fr)}.pay-btn{text-align:center}.public-nav button{font-size:13px;padding:9px 10px}}
+  </style>
+</head>
+<body>
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-card">
+      <div class="spinner"></div>
+      <strong id="loadingText">Memuat...</strong>
+    </div>
+  </div>
+  <div id="publicApp">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo" id="pubLogo">AW</div>
+          <div><strong id="pubSchool">SD AL-WILDAN 4 ISLAMIC SCHOOL JAKARTA</strong><span id="pubTitle">Ekstrakurikuler SD</span></div>
+        </div>
+        <nav class="public-nav">
+          <button class="active" data-public="pendaftaran">Pendaftaran</button>
+          <button data-public="katalog">Katalog</button>
+          <button data-public="login">Login Akses</button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page">
+      <section id="public-pendaftaran" class="public-section active">
+        <div class="hero"><h1>Pendaftaran Ekstrakurikuler SD</h1><p>Isi data siswa, pilih ekskul, lalu sistem akan membuat username dan password otomatis untuk akses siswa.</p></div>
+        <div class="grid-2" id="registrationContent">
+          <div class="panel">
+            <h2>Data Pendaftaran</h2>
+            <form id="registerForm">
+              <div class="field"><label>Nama Siswa</label><input id="regNama" required></div>
+              <div class="field"><label>Kelas</label><select id="regKelas" required></select></div>
+              <div class="field"><label>Nama Orang Tua/Wali</label><input id="regOrtu" required></div>
+              <div class="field"><label>Nomor WhatsApp</label><input id="regPhone" required></div>
+              <label class="agree"><input type="checkbox" id="regAgree" required><span>Saya menyetujui pendaftaran ekstrakurikuler dan ketentuan sekolah.</span></label>
+              <button class="btn btn-primary btn-block" id="registerBtn" type="submit">Kirim Pendaftaran</button>
+              <div id="regMsg" class="message"></div>
+              <div id="credBox" class="cred-box"></div>
+              <div id="paymentBox" class="payment-box"><h3>Menu Pembayaran</h3><p>Bayar melalui Xendit, lalu upload bukti dan isi nominal yang dibayarkan.</p><div id="paymentList" class="payment-list"></div></div>
+            </form>
+          </div>
+          <div class="panel">
+            <h2>Pilih Ekskul <span class="fee"><span id="choiceCount">0</span>/4</span></h2>
+            <p>Pilih minimal 1 dan maksimal 4 ekskul.</p>
+            <div id="choiceList" class="choice-list"></div>
+          </div>
+        </div>
+        <div id="afterRegisterPage" class="panel" style="display:none"></div>
+      </section>
+
+      <section id="public-katalog" class="public-section">
+        <div class="hero"><h1>Katalog Ekstrakurikuler</h1><p>Pilih nama ekskul untuk melihat deskripsi, jadwal, biaya, dan dokumentasi kegiatan.</p></div>
+        <div class="katalog-layout">
+          <div class="panel"><h2>Daftar Ekskul</h2><div id="ekskulMenu" class="ekskul-menu"></div></div>
+          <div id="catalogDetail" class="panel"></div>
+        </div>
+      </section>
+
+      <section id="public-login" class="public-section">
+        <div class="hero"><h1>Login Dashboard</h1><p>Masuk menggunakan username dan password yang diberikan sekolah atau yang didapat setelah pendaftaran.</p></div>
+        <div class="panel" style="max-width:520px">
+          <h2>Masuk</h2>
+          <form id="loginForm">
+            <div class="field"><label>Username</label><input id="loginUser" required></div>
+            <div class="field"><label>Password</label><input id="loginPass" type="password" required></div>
+            <button class="btn btn-primary btn-block" type="submit">Login</button>
+            <div id="loginMsg" class="message"></div>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="dashApp" class="dashboard">
+    <div class="mobilebar"><button class="hamburger" onclick="toggleSidebar()">☰ Menu</button><b>Dashboard</b></div>
+    <aside class="sidebar" id="sidebar">
+      <div class="brand"><div class="logo" id="dashLogo">AW</div><div><strong id="dashSchool">SD AL-WILDAN 4 ISLAMIC SCHOOL JAKARTA</strong><span>Dashboard Ekskul</span></div></div>
+      <div class="user-card"><strong id="dashName">User</strong><span id="dashUsername">username</span><div class="role-badge" id="dashRole">role</div></div>
+      <nav class="dash-nav" id="dashNav"></nav>
+    </aside>
+    <main class="main">
+      <section id="dash-home" class="dash-section active"><div class="hero"><h1>Dashboard</h1><p id="welcomeText">Selamat datang.</p></div><div class="stats" id="statsGrid"></div></section>
+      <section id="dash-katalog" class="dash-section"><div class="hero"><h1>Katalog</h1><p>Informasi ekskul, biaya, jadwal, dan dokumentasi.</p></div><div class="katalog-layout"><div class="panel"><h2>Daftar Ekskul</h2><div id="dashEkskulMenu" class="ekskul-menu"></div></div><div id="dashCatalogDetail" class="panel"></div></div></section>
+      <section id="dash-pic-absensi" class="dash-section"><div class="hero"><h1>Absensi Massal</h1><p>Pilih ekskul dan tanggal, daftar siswa akan muncul otomatis. Centang hadir/tidak, lalu isi materi umum di bawah.</p></div><div class="panel"><div class="row"><div class="field"><label>Tanggal</label><input type="date" id="absTanggal"></div><div class="field"><label>Ekskul</label><select id="absEkskul"></select></div></div><button class="btn btn-primary btn-block" onclick="loadAttendanceStudents()">Tampilkan Siswa</button><div id="attendanceList" style="margin-top:16px"></div><div class="field"><label>Materi Umum Pertemuan</label><textarea id="absMateri" placeholder="Contoh: Latihan dasar, teknik, murajaah, atau materi hari ini."></textarea></div><button class="btn btn-gold btn-block" onclick="saveAttendance()">Simpan Absensi</button><div id="absMsg" class="message"></div></div></section>
+      <section id="dash-score" class="dash-section"><div class="hero"><h1>Input Nilai Raport</h1><p>Input massal untuk pertemuan akhir. Pilih ekskul, lalu isi nilai dan materi yang dikuasai.</p></div><div class="panel"><div class="row"><div class="field"><label>Tanggal</label><input type="date" id="scoreTanggal"></div><div class="field"><label>Ekskul</label><select id="scoreEkskul"></select></div></div><button class="btn btn-primary btn-block" onclick="loadScoreStudents()">Tampilkan Siswa</button><div id="scoreList" style="margin-top:16px"></div><button class="btn btn-gold btn-block" onclick="saveScores()">Simpan Nilai Massal</button><div id="scoreMsg" class="message"></div></div></section>
+      <section id="dash-student-pay" class="dash-section"><div class="hero"><h1 id="studentAreaTitle">Pembayaran</h1><p>Data siswa dibuat ringkas sesuai menu yang dipilih.</p></div><div id="studentArea"></div></section>
+      <section id="dash-data-pendaftaran" class="dash-section"><div class="hero"><h1 id="dataTitle">Data</h1><p>Gunakan tombol print atau download untuk arsip fisik/soft file.</p></div><div id="tablesArea"></div></section>
+    <section id="dash-rekap-absensi" class="dash-section"><div class="hero"><h1>Rekap Absensi</h1><p>Pilih ekskul untuk melihat seluruh siswa dan jumlah kehadirannya.</p></div><div id="recapAbsensiArea"></div></section>
+      <section id="dash-password" class="dash-section"><div class="hero"><h1>Ganti Password</h1><p>Gunakan password yang mudah diingat namun tidak mudah ditebak.</p></div><div class="panel" style="max-width:520px"><form id="passwordForm"><div class="field"><label>Password Lama</label><input type="password" id="oldPassword" required></div><div class="field"><label>Password Baru</label><input type="password" id="newPassword" required></div><div class="field"><label>Konfirmasi Password Baru</label><input type="password" id="confirmPassword" required></div><button class="btn btn-primary btn-block" type="submit">Ganti Password</button><div id="passwordMsg" class="message"></div></form></div></section>
+    </main>
+  </div>
+
+<script>
+// ==============================
+// V10 GITHUB READY CONFIG
+// ==============================
+// 1) Deploy Apps Script sebagai Web App.
+// 2) Copy URL /exec ke bawah ini.
+const API_URL = "https://script.google.com/macros/s/AKfycbxNdZNDqg9oKrQ3HqkrfVYR4so8shkskE_HVVnUtwzXhSS1ht-G6K8zUwVvpYnHEQVX/exec";
+
+const DEFAULT_KELAS=[
+  "1A","1B","1C","1D","1E","2A","2B","2C","2D","2E","3A","3B","3C","3D","3E",
+  "4A","4B","4C","4D","4E","5A","5B","5C","5D","5E","6A","6B","6C","6D","6E"
+];
+const DEFAULT_SCHEDULES=[
+  ["Archery","Ikhwan Lower","Ikhwan","Lower","Senin","15.00–16.00","Lapangan","Kelas 1–3"],
+  ["Archery","Ikhwan Upper","Ikhwan","Upper","Senin","16.00–17.00","Lapangan","Kelas 4–6"],
+  ["Archery","Akhwat Lower","Akhwat","Lower","Selasa","15.00–16.00","Lapangan","Kelas 1–3"],
+  ["Archery","Akhwat Upper","Akhwat","Upper","Selasa","16.00–17.00","Lapangan","Kelas 4–6"],
+  ["Arabic Club","Ikhwan Lower","Ikhwan","Lower","Rabu","15.00–16.00","Kelas Bahasa","Kelas 1–3"],
+  ["Arabic Club","Ikhwan Upper","Ikhwan","Upper","Rabu","16.00–17.00","Kelas Bahasa","Kelas 4–6"],
+  ["Arabic Club","Akhwat Lower","Akhwat","Lower","Kamis","15.00–16.00","Kelas Bahasa","Kelas 1–3"],
+  ["Arabic Club","Akhwat Upper","Akhwat","Upper","Kamis","16.00–17.00","Kelas Bahasa","Kelas 4–6"],
+  ["Coding","Ikhwan Lower","Ikhwan","Lower","Jumat","15.00–16.00","Lab Komputer","Kelas 1–3"],
+  ["Coding","Ikhwan Upper","Ikhwan","Upper","Jumat","16.00–17.00","Lab Komputer","Kelas 4–6"],
+  ["Coding","Akhwat Lower","Akhwat","Lower","Sabtu","08.00–09.00","Lab Komputer","Kelas 1–3"],
+  ["Coding","Akhwat Upper","Akhwat","Upper","Sabtu","09.00–10.00","Lab Komputer","Kelas 4–6"],
+  ["Futsal","Ikhwan Lower","Ikhwan","Lower","Senin","15.00–16.00","Lapangan","Kelas 1–3"],
+  ["Futsal","Ikhwan Upper","Ikhwan","Upper","Senin","16.00–17.00","Lapangan","Kelas 4–6"],
+  ["Basketball","Ikhwan Lower","Ikhwan","Lower","Selasa","15.00–16.00","Lapangan","Kelas 1–3"],
+  ["Basketball","Ikhwan Upper","Ikhwan","Upper","Selasa","16.00–17.00","Lapangan","Kelas 4–6"],
+  ["Renang","Reguler","Ikhwan/Akhwat","Lower/Upper","Rabu","15.00–16.00","Kolam Renang","Kelas 1–6"]
+].map(r=>({ekskul:r[0],kelompok:r[1],gender:r[2],level:r[3],hari:r[4],jam:r[5],lokasi:r[6],kelas:r[7],keterangan:""}));
+const DEFAULT_NAMES=["Archery","Taekwondo","Tahfidz Club","Science & English Club","Badminton","Renang","Basketball","Karate","Coding","Cooking Class","Robotik","Futsal","Arabic Club"];
+const CLIENT_DEFAULT_CATALOG=DEFAULT_NAMES.map(name=>({
+  name,fee:"Rp1.200.000,-",description:"Informasi lengkap dapat diisi melalui Google Sheet.",images:[],
+  schedules:DEFAULT_SCHEDULES.filter(s=>s.ekskul===name),
+  trainers:[{nama:"Nama Pelatih "+name,biodata:"Biodata pelatih dapat diisi melalui sheet Pelatih Ekskul.",foto:""}],
+  paymentLink:"", whatsappLink:""
+}));
+const state={catalog:CLIENT_DEFAULT_CATALOG,kelas:DEFAULT_KELAS,selected:[],auth:null,user:null,attendanceRows:[],scoreRows:[],tempAuth:null,currentTable:null};
+let loadingTimer=null;
+const $=id=>document.getElementById(id);
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
+function msg(el,type,text){el.className="message "+type;el.innerHTML=text}
+function clearMsg(el){el.className="message";el.innerHTML=""}
+function showLoading(text){$("loadingText").textContent=text||"Memuat...";$("loadingOverlay").classList.add("show")}
+function hideLoading(){$("loadingOverlay").classList.remove("show")}
+function startLoading(text){clearTimeout(loadingTimer);loadingTimer=setTimeout(()=>showLoading(text),700)}
+function stopLoading(){clearTimeout(loadingTimer);hideLoading()}
+function apiReady(){return API_URL && !API_URL.includes("PASTE_APPS_SCRIPT")}
+async function api(action,payload={}){
+  if(!apiReady()) throw new Error("API_URL belum diisi. Buka index.html, isi const API_URL dengan link Web App Apps Script /exec.");
+  const body=new URLSearchParams();
+  body.set("action",action);
+  body.set("payload",JSON.stringify(payload));
+  const res=await fetch(API_URL,{method:"POST",body});
+  const text=await res.text();
+  let json;
+  try{json=JSON.parse(text)}catch(e){throw new Error("Respon API bukan JSON. Pastikan URL Web App benar dan akses = Anyone. Respon: "+text.slice(0,140))}
+  if(!json.ok) throw new Error(json.error||"API error");
+  return json.data;
+}
+function showPublic(id){document.querySelectorAll(".public-section").forEach(s=>s.classList.toggle("active",s.id==="public-"+id));document.querySelectorAll("[data-public]").forEach(b=>b.classList.toggle("active",b.dataset.public===id));window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("[data-public]").forEach(b=>b.addEventListener("click",()=>showPublic(b.dataset.public)));
+function toggleSidebar(){ $("sidebar").classList.toggle("open") }
+function showDash(id){const visual=(id==="student-pay"||id==="student-absensi"||id==="student-nilai")?"student-pay":(id.startsWith("data-")?"data-pendaftaran":id);document.querySelectorAll(".dash-section").forEach(s=>s.classList.toggle("active",s.id==="dash-"+visual));document.querySelectorAll("[data-dash]").forEach(b=>b.classList.toggle("active",b.dataset.dash===id));$("sidebar").classList.remove("open");window.scrollTo({top:0,behavior:"smooth"});if(id==="student-pay")loadStudentMenu("pembayaran");if(id==="student-absensi")loadStudentMenu("absensi");if(id==="student-nilai")loadStudentMenu("nilai");if(id.startsWith("data-"))loadRoleTable(id.replace("data-",""));if(id==="rekap-absensi")renderRecapAbsensiMenu()}
+function logout(){state.auth=null;state.user=null;$("dashApp").style.display="none";$("publicApp").style.display="block";showPublic("pendaftaran")}
+function init(){renderSelects();renderKatalogMenus();renderChoices(); if(!apiReady()){console.warn("API_URL belum diisi. Website tampil default, tetapi belum sinkron ke Spreadsheet.");return;} api("getPublicData").then(data=>{if(data.schoolName){$("pubSchool").textContent=data.schoolName;$("dashSchool").textContent=data.schoolName}if(data.appTitle)$("pubTitle").textContent=data.appTitle;if(data.logoUrl){$("pubLogo").innerHTML=`<img src="${esc(data.logoUrl)}">`;$("dashLogo").innerHTML=`<img src="${esc(data.logoUrl)}">`}state.kelas=(data.kelas&&data.kelas.length)?data.kelas:DEFAULT_KELAS;state.catalog=(data.catalog&&data.catalog.length)?data.catalog:CLIENT_DEFAULT_CATALOG;renderSelects();renderKatalogMenus();renderChoices()}).catch(e=>console.log("Memakai data default:",e.message))}
+function renderSelects(){const opts=`<option value="">Pilih kelas</option>`+state.kelas.map(k=>`<option>${esc(k)}</option>`).join("");if($("regKelas"))$("regKelas").innerHTML=opts}
+function renderKatalogMenus(){const menu=state.catalog.map((c,i)=>`<button class="${i===0?'active':''}" onclick="showCatalogDetail('${esc(c.name)}')">${esc(c.name)}<br><span style="color:#667085;font-size:12px">${esc(c.fee||'Biaya menyusul')}</span></button>`).join("");$("ekskulMenu").innerHTML=menu;if(state.catalog[0])showCatalogDetail(state.catalog[0].name)}
+function showCatalogDetail(name){const c=state.catalog.find(x=>x.name===name);if(!c)return;const menu=$("ekskulMenu");if(menu)menu.querySelectorAll("button").forEach(b=>b.classList.toggle("active",b.textContent.trim().startsWith(name)));const schedules=(c.schedules&&c.schedules.length?c.schedules:DEFAULT_SCHEDULES.filter(s=>s.ekskul===name));const sched=schedules.length?schedules.map(s=>`<div class="schedule-chip"><b>${esc(s.kelompok||"Reguler")}</b><br>Jadwal: ${esc(s.hari||"-")} · ${esc(s.jam||"-")}<br>${esc(s.gender||"")} ${esc(s.level||"")} · ${esc(s.lokasi||"-")}<br>${esc(s.kelas||"")} ${s.keterangan?`· ${esc(s.keterangan)}`:""}</div>`).join(""):`<div class="notice">Jadwal belum tersedia.</div>`;const trainers=(c.trainers&&c.trainers.length?c.trainers:[]).map(t=>`<div class="trainer-card"><div class="trainer-photo">${t.foto?`<img src="${esc(t.foto)}" alt="${esc(t.nama)}">`:"👤"}</div><div><b>${esc(t.nama)}</b><br><span style="color:#667085;font-size:13px;line-height:1.5">${esc(t.biodata||"Biodata pelatih dapat diisi di sheet Pelatih Ekskul.")}</span></div></div>`).join("")||`<div class="notice">Biodata pelatih belum diisi.</div>`;const photos=(c.images&&c.images.length?c.images:[]).slice(0,6).map((img,i)=>`<div class="photo"><img src="${esc(img.url||img)}" style="object-position:${esc(img.position||'center')}" alt="Dokumentasi ${esc(c.name)} ${i+1}"></div>`).join("")||Array.from({length:6}).map((_,i)=>`<div class="photo">${i+1}</div>`).join("");$("catalogDetail").innerHTML=`<h2>${esc(c.name)}</h2><div class="fee">${esc(c.fee||'Biaya menyusul')}</div><p style="margin-top:12px">${esc(c.description||'Deskripsi belum diisi.')}</p><h3>Jadwal</h3><div class="schedule-list">${sched}</div><h3 style="margin-top:18px">Biodata Pelatih</h3><div class="trainer-grid">${trainers}</div><h3 style="margin-top:18px">Dokumentasi</h3><div class="photo-grid">${photos}</div>`}
+function renderChoices(){ $("choiceList").innerHTML=state.catalog.map(c=>`<label class="choice-item"><input type="checkbox" value="${esc(c.name)}"><div><strong>${esc(c.name)}</strong></div><div class="price">${esc(c.fee||"Biaya menyusul")}</div></label>`).join("");document.querySelectorAll("#choiceList input").forEach(inp=>inp.addEventListener("change",e=>{if(e.target.checked){if(state.selected.length>=4){e.target.checked=false;msg($("regMsg"),"error","Maksimal 4 ekskul.");return}state.selected.push(e.target.value)}else{state.selected=state.selected.filter(x=>x!==e.target.value)}$("choiceCount").textContent=state.selected.length}))}
+$("registerForm").addEventListener("submit",async e=>{e.preventDefault();clearMsg($("regMsg"));if(state.selected.length<1){msg($("regMsg"),"error","Pilih minimal 1 ekskul.");return}const form={namaSiswa:$("regNama").value,kelas:$("regKelas").value,namaOrtu:$("regOrtu").value,phone:$("regPhone").value,agree:$("regAgree").checked,choices:state.selected};$("registerBtn").disabled=true;$("registerBtn").textContent="Menyimpan...";startLoading("Menyimpan pendaftaran...");try{const r=await api("registerStudent",{form});stopLoading();$("registerBtn").disabled=false;$("registerBtn").textContent="Kirim Pendaftaran";if(r.success){state.tempAuth={username:r.username,password:r.password};showAfterRegistration(r)}else msg($("regMsg"),"error",esc(r.message))}catch(err){stopLoading();$("registerBtn").disabled=false;$("registerBtn").textContent="Kirim Pendaftaran";msg($("regMsg"),"error",esc(err.message))}});
+function showAfterRegistration(r){$("registrationContent").style.display="none";const payItems=(r.paymentItems&&r.paymentItems.length)?r.paymentItems:state.selected.map(name=>{const item=state.catalog.find(c=>c.name===name)||{};return {name,fee:item.fee||"Rp1.200.000,-",paymentLink:item.paymentLink||"",whatsappLink:item.whatsappLink||""}});const selected=payItems.map(i=>i.name).join(", ");const box=$("afterRegisterPage");box.style.display="block";box.innerHTML=`<div class="after-hero"><h2 class="success-title">✅ Pendaftaran Berhasil</h2><p>Simpan username dan password berikut untuk login siswa.</p><div class="cred-grid"><div class="cred-item"><strong>Username</strong><code>${esc(r.username)}</code></div><div class="cred-item"><strong>Password</strong><code>${esc(r.password)}</code></div></div><p style="margin-top:12px;color:#667085">Pilihan ekskul: <b>${esc(selected)}</b></p><div class="payment-box" style="display:block"><h3>Informasi Tagihan</h3><div id="paymentList" class="payment-list"></div></div></div>`;renderPayment(payItems);window.scrollTo({top:0,behavior:"smooth"})}
+function renderPayment(items){const list=$("paymentList");if(!list)return;if(!items||!items.length){list.innerHTML=`<div class="notice">Tagihan belum terbaca.</div>`;return}list.innerHTML=items.map((i,idx)=>`<div class="pay-item"><div class="pay-header"><div><b>${esc(i.name)}</b><br><span style="color:#667085">Tagihan: ${esc(i.fee||"Biaya menyusul")}</span></div>${i.paymentLink?`<a class="pay-btn" target="_blank" href="${esc(i.paymentLink)}">Bayar Sekarang</a>`:`<button class="btn btn-light" type="button">Link Bayar Belum Tersedia</button>`}</div><div class="panel pay-confirm"><h3>Konfirmasi Pembayaran</h3><p>Isi nominal sesuai pembayaran di Xendit, lalu upload bukti pembayaran.</p><div class="pay-stack"><input id="nominal-${idx}" placeholder="Input nominal dibayarkan, contoh 1200000"><input type="file" id="proof-${idx}" accept="image/*,.pdf"><button class="btn btn-primary" type="button" onclick="uploadProof('${esc(i.name)}',${idx})">Upload Bukti Pembayaran</button></div><div id="paymsg-${idx}" class="message"></div></div><div class="wa-box"><b>Grup WhatsApp ${esc(i.name)}</b><p style="margin:6px 0 0;color:#667085">Silakan join grup WhatsApp setelah menyelesaikan pembayaran.</p>${i.whatsappLink?`<a class="wa-btn" target="_blank" href="${esc(i.whatsappLink)}">Join Grup WhatsApp</a>`:`<button class="btn btn-light btn-block" type="button">Link Grup WhatsApp Belum Tersedia</button>`}</div></div>`).join("")}
+function uploadProof(ekskul,idx){const fileInput=$(`proof-${idx}`);const nominal=$(`nominal-${idx}`).value;const m=$(`paymsg-${idx}`);clearMsg(m);if(!state.tempAuth&&!state.auth){msg(m,"error","Akses siswa tidak ditemukan. Silakan login ulang.");return}if(!nominal){msg(m,"error","Isi nominal yang dibayarkan.");return}if(!fileInput.files.length){msg(m,"error","Pilih file bukti pembayaran.");return}const f=fileInput.files[0];const reader=new FileReader();reader.onload=async ev=>{const base64=String(ev.target.result).split(",")[1];const payload={ekskul,nominal,file:{name:f.name,mimeType:f.type,data:base64}};startLoading("Mengupload bukti pembayaran...");try{const r=await api("submitPaymentProof",{auth:state.tempAuth||state.auth,payload});stopLoading();msg(m,r.status==="Lunas"?"success":"error",esc(r.message))}catch(err){stopLoading();msg(m,"error",esc(err.message))}};reader.readAsDataURL(f)}
+$("loginForm").addEventListener("submit",async e=>{e.preventDefault();clearMsg($("loginMsg"));const auth={username:$("loginUser").value,password:$("loginPass").value};startLoading("Login...");try{const r=await api("login",{auth});stopLoading();state.auth=auth;enterDashboard(r.user,r.dashboard)}catch(err){stopLoading();msg($("loginMsg"),"error",esc(err.message))}});
+function enterDashboard(user,dashboard){state.user=user;$("publicApp").style.display="none";$("dashApp").style.display="grid";$("dashName").textContent=user.name;$("dashUsername").textContent=user.username;$("dashRole").textContent=user.role.toUpperCase();$("welcomeText").textContent=`Selamat datang, ${user.name}. Role: ${user.role.toUpperCase()}.`;renderDashMenu();renderStats(dashboard);renderDashSelects()}
+function renderDashMenu(){const role=state.user.role;let m=[["home","🏠","Dashboard"]];if(role==="admin"||role==="owner"){m.push(["pic-absensi","✅","Input Absensi"],["score","📊","Input Nilai"],["rekap-absensi","📋","Rekap Absensi"],["data-pendaftaran","📝","Data Pendaftaran"],["data-users","👥","Data Akun"],["data-absensi","✅","Data Absensi"],["data-tagihan","💳","Data Tagihan"],["data-nilai","📊","Data Nilai"],["data-rekap","📈","Rekap Ekskul"],["data-pelatih","🧑‍🏫","Data Pelatih"])}else if(role==="pic"){m.push(["pic-absensi","✅","Input Absensi"],["rekap-absensi","📋","Rekap Absensi"])}else if(role==="siswa"){m.push(["student-pay","💳","Pembayaran"],["student-absensi","✅","Absensi"],["student-nilai","📊","Nilai Raport"])}m.push(["password","🔑","Ganti Password"],["logout","🚪","Keluar"]);$("dashNav").innerHTML=m.map(x=>x[0]==="logout"?`<button onclick="logout()">${x[1]} ${x[2]}</button>`:`<button data-dash="${x[0]}" onclick="showDash('${x[0]}')">${x[1]} ${x[2]}</button>`).join("")}
+function renderStats(d){let arr=Object.keys(d||{}).map(k=>[k,d[k]]);$("statsGrid").innerHTML=arr.map(a=>`<div class="stat"><strong>${esc(typeof a[1]==="object"?"Lihat":a[1])}</strong><span>${esc(a[0])}</span></div>`).join("")}
+function renderDashSelects(){const opts=`<option value="">Pilih ekskul</option>`+state.catalog.map(c=>`<option>${esc(c.name)}</option>`).join("");$("absEkskul").innerHTML=opts;$("scoreEkskul").innerHTML=opts}
+async function loadAttendanceStudents(){clearMsg($("absMsg"));const eks=$("absEkskul").value;if(!eks){msg($("absMsg"),"error","Pilih ekskul dulu.");return}$("attendanceList").innerHTML=`<div class="inline-loading">Memuat siswa...</div>`;try{const rows=await api("getStudentsForAttendance",{auth:state.auth,ekskul:eks});state.attendanceRows=rows;$("attendanceList").innerHTML=rows.length?rows.map((r,i)=>`<div class="att-row"><input type="checkbox" checked data-i="${i}"><div><b>${esc(r.nama)}</b><br><span style="color:#667085">${esc(r.kelas)} · ${esc(r.username)}</span></div><select data-note="${i}"><option value="">Catatan</option><option>Sakit</option><option>Izin</option><option>Alpa</option></select></div>`).join(""):`<div class="notice">Belum ada siswa terdaftar pada ekskul ini.</div>`}catch(err){msg($("absMsg"),"error",esc(err.message))}}
+async function saveAttendance(){clearMsg($("absMsg"));const rows=state.attendanceRows.map((r,i)=>({username:r.username,nama:r.nama,kelas:r.kelas,hadir:document.querySelector(`[data-i="${i}"]`)?.checked,catatan:document.querySelector(`[data-note="${i}"]`)?.value||""}));const payload={tanggal:$("absTanggal").value,ekskul:$("absEkskul").value,materi:$("absMateri").value,rows};startLoading("Menyimpan absensi...");try{const r=await api("saveBulkAttendance",{auth:state.auth,payload});stopLoading();msg($("absMsg"),"success",esc(r.message));$("attendanceList").innerHTML="";$("absMateri").value="";state.attendanceRows=[]}catch(err){stopLoading();msg($("absMsg"),"error",esc(err.message))}}
+async function loadScoreStudents(){clearMsg($("scoreMsg"));const eks=$("scoreEkskul").value;if(!eks){msg($("scoreMsg"),"error","Pilih ekskul dulu.");return}$("scoreList").innerHTML=`<div class="inline-loading">Memuat siswa...</div>`;try{const rows=await api("getStudentsForAttendance",{auth:state.auth,ekskul:eks});state.scoreRows=rows;$("scoreList").innerHTML=rows.length?rows.map((r,i)=>`<div class="score-row"><div><b>${esc(r.nama)}</b><br><span style="color:#667085">${esc(r.kelas)} · ${esc(r.username)}</span></div><select data-score="${i}"><option value="">Pilih nilai</option><option>SANGAT BAIK</option><option>BAIK</option></select><input data-materi="${i}" placeholder="Materi yang dikuasai"></div>`).join(""):`<div class="notice">Belum ada siswa terdaftar pada ekskul ini.</div>`}catch(err){msg($("scoreMsg"),"error",esc(err.message))}}
+async function saveScores(){clearMsg($("scoreMsg"));const rows=(state.scoreRows||[]).map((r,i)=>({username:r.username,nama:r.nama,kelas:r.kelas,nilai:document.querySelector(`[data-score="${i}"]`)?.value||"",materi:document.querySelector(`[data-materi="${i}"]`)?.value||""}));const payload={tanggal:$("scoreTanggal").value,ekskul:$("scoreEkskul").value,rows};startLoading("Menyimpan nilai...");try{const r=await api("saveBulkScores",{auth:state.auth,payload});stopLoading();msg($("scoreMsg"),"success",esc(r.message));$("scoreList").innerHTML="";state.scoreRows=[]}catch(err){stopLoading();msg($("scoreMsg"),"error",esc(err.message))}}
+async function loadStudentMenu(menu){const title={pembayaran:"Pembayaran",absensi:"Absensi",nilai:"Nilai Raport"}[menu]||"Area Siswa";$("studentAreaTitle").textContent=title;$("studentArea").innerHTML=`<div class="inline-loading">Memuat data...</div>`;try{const d=await api("getStudentMenuData",{auth:state.auth,menuName:menu});const rows=d.rows||[];let html="";if(menu==="pembayaran"){html=rows.map(p=>`<div class="mini-card"><b>${esc(p.ekskul)}</b><span>Status: <span class="${String(p.status).toLowerCase()==='lunas'?'status-lunas':'status-belum'}">${esc(p.status)}</span><br>Tagihan: ${esc(p.nominal)}${p.dibayar?`<br>Dibayar: ${esc(p.dibayar)}`:""}</span></div>`).join("")}else if(menu==="absensi"){html=rows.map(a=>`<div class="mini-card"><b>${esc(a.ekskul)}</b><span>Hadir: ${esc(a.hadir)} dari ${esc(a.total)} pertemuan<br>Tanggal hadir: ${esc((a.tanggalHadir||[]).join(", ")||"-")}</span></div>`).join("")}else{html=rows.map(s=>`<div class="mini-card"><b>${esc(s.ekskul)}</b><span>Nilai: <b>${esc(s.nilai||"-")}</b><br>Materi dikuasai: ${esc(s.materi||"-")}</span></div>`).join("")}$("studentArea").innerHTML=`<div class="data-toolbar"><button class="btn btn-light" onclick="printArea('studentArea')">Print</button><button class="btn btn-light" onclick="downloadCardsCSV('${title}','studentArea')">Download CSV</button></div><div class="mini-cards">${html||"<p>Data belum tersedia.</p>"}</div>`}catch(err){alert(err.message)}}
+async function loadRoleTable(key){const titles={pendaftaran:"Data Pendaftaran",users:"Data Akun",absensi:"Data Absensi",tagihan:"Data Tagihan",nilai:"Data Nilai",rekap:"Rekap Ekskul",pelatih:"Data Pelatih"};$("dataTitle").textContent=titles[key]||"Data";$("tablesArea").innerHTML=`<div class="inline-loading">Memuat data...</div>`;try{const t=await api("getRoleTable",{auth:state.auth,tableName:key});state.currentTable=t;$("tablesArea").innerHTML=`${toolbarHTML(titles[key]||"Data","tablesArea")}${tableHtml(t)}`}catch(err){alert(err.message)}}
+function renderRecapAbsensiMenu(){const opts=`<option value="">Pilih ekskul</option>`+state.catalog.map(c=>`<option>${esc(c.name)}</option>`).join("");$("recapAbsensiArea").innerHTML=`<div class="panel"><h2>Pilih Ekskul</h2><select id="recapEkskul">${opts}</select><button class="btn btn-primary btn-block" onclick="loadAttendanceRecap()">Tampilkan Rekap</button><div id="recapResult" style="margin-top:16px"></div></div>`}
+async function loadAttendanceRecap(){const eks=$("recapEkskul").value;if(!eks){alert("Pilih ekskul dulu.");return}$("recapResult").innerHTML=`<div class="inline-loading">Memuat rekap absensi...</div>`;try{const t=await api("getAttendanceRecap",{auth:state.auth,ekskul:eks});state.currentTable=t;$("recapResult").innerHTML=`${toolbarHTML("Rekap Absensi "+eks,"recapResult")}${tableHtml(t)}`}catch(err){alert(err.message)}}
+$("passwordForm").addEventListener("submit",async e=>{e.preventDefault();clearMsg($("passwordMsg"));const form={oldPassword:$("oldPassword").value,newPassword:$("newPassword").value,confirmPassword:$("confirmPassword").value};startLoading("Mengganti password...");try{const r=await api("changePassword",{auth:state.auth,form});stopLoading();msg($("passwordMsg"),"success",esc(r.message))}catch(err){stopLoading();msg($("passwordMsg"),"error",esc(err.message))}});
+function toolbarHTML(title,areaId){return `<div class="data-toolbar"><button class="btn btn-light" onclick="printArea('${areaId}')">Print</button><button class="btn btn-light" onclick="downloadTableCSV('${esc(title)}','${areaId}')">Download CSV</button></div>`}
+function tableHtml(t){if(!t||!t.headers||!t.headers.length)return"<p style='color:#667085'>Data belum tersedia.</p>";return`<div class="table-wrap"><table><thead><tr>${t.headers.map(h=>`<th>${esc(h)}</th>`).join("")}</tr></thead><tbody>${(t.rows||[]).length?t.rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${t.headers.length}">Belum ada data.</td></tr>`}</tbody></table></div>`}
+function printArea(areaId){const el=$(areaId);const w=window.open("","_blank");w.document.write(`<html><head><title>Print</title><style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;padding:24px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:8px;font-size:12px;text-align:left}.mini-card{border:1px solid #ddd;border-radius:12px;padding:12px;margin:8px 0}</style></head><body>${el.innerHTML}</body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),300)}
+function downloadTableCSV(title,areaId){const table=$(areaId).querySelector("table");if(!table){alert("Tidak ada tabel untuk didownload.");return}const rows=[...table.querySelectorAll("tr")].map(tr=>[...tr.children].map(td=>`"${td.innerText.replace(/"/g,'""')}"`).join(",")).join("\n");downloadText(title+".csv",rows)}
+function downloadCardsCSV(title,areaId){const cards=[...$(areaId).querySelectorAll(".mini-card")];if(!cards.length){alert("Tidak ada data untuk didownload.");return}const rows=["Judul,Keterangan"].concat(cards.map(c=>`"${(c.querySelector("b")?.innerText||"").replace(/"/g,'""')}","${(c.querySelector("span")?.innerText||"").replace(/"/g,'""')}"`)).join("\n");downloadText(title+".csv",rows)}
+function downloadText(filename,text){const blob=new Blob([text],{type:"text/csv;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename.replace(/[\\/:*?"<>|]/g,"_");document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url)}
+init();
+</script>
+</body>
+</html>
